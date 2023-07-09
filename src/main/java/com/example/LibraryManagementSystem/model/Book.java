@@ -1,5 +1,6 @@
 package com.example.LibraryManagementSystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -33,10 +34,12 @@ public class Book {
 
     @ManyToOne // First part comes from class second part comes from entity on top of which we wrote this
     @JoinColumn
+    @JsonIgnoreProperties({"bookList"})
     private Author my_author;
 
     @ManyToOne
     @JoinColumn
+    @JsonIgnoreProperties({"bookList"})
     private Student student;
 
     @OneToMany(mappedBy = "book")

@@ -1,5 +1,6 @@
 package com.example.LibraryManagementSystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -33,17 +34,20 @@ public class Transaction {
     @UpdateTimestamp
     private Date updatedOn;
 
-    private Double fine;
+    private Integer fine;
 
     @JoinColumn
     @ManyToOne
+    @JsonIgnoreProperties({"transactionList"})
     private Book book;
 
     @ManyToOne
     @JoinColumn
+    @JsonIgnoreProperties({"transactionList"})
     private Student student;
 
     @ManyToOne
     @JoinColumn
+    @JsonIgnoreProperties({"transactionList"})
     private Admin admin;
 }
