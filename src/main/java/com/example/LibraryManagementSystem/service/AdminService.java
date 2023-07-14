@@ -5,6 +5,8 @@ import com.example.LibraryManagementSystem.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AdminService {
 
@@ -17,5 +19,9 @@ public class AdminService {
 
     public Admin find(Integer adminId) {
           return adminRepository.findById(adminId).orElse(null);
+    }
+
+    public List<Admin> getAll() {
+          return adminRepository.findAll();
     }
 }
