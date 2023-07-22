@@ -32,5 +32,8 @@ public class Admin {
     @JsonIgnoreProperties({"admin"})
     private List<Transaction> transactionList;
 
-
+    @OneToOne
+    @JoinColumn
+    @JsonIgnoreProperties("admin")
+    private SecuredUser securedUser;
 }

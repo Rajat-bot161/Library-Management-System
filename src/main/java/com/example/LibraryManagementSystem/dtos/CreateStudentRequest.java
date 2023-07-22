@@ -1,5 +1,6 @@
 package com.example.LibraryManagementSystem.dtos;
 
+import com.example.LibraryManagementSystem.model.SecuredUser;
 import com.example.LibraryManagementSystem.model.Student;
 import lombok.*;
 
@@ -20,10 +21,22 @@ public class CreateStudentRequest {
 
     private Integer age;
 
+    @NotBlank
+    private String username;
+
+    @NotBlank
+    private String password;
+
     public Student to(){
         return Student.builder()
                 .name(this.name)
                 .email(this.email)
+                .securedUser(
+                        SecuredUser.builder()
+                                .username(this.username)
+                                .password(this.password)
+                                .build()
+                )
                 .age(this.age)
                 .build();
     }

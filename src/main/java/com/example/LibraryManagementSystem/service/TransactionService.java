@@ -32,15 +32,15 @@ public class TransactionService {
     @Value("${student.allowed.duration}")
     Integer duration;
 
-    public String initiateTxn(InitiateTransactionRequest initiateTransactionRequest) throws Exception {
+    public String initiateTxn(InitiateTransactionRequest initiateTransactionRequest, Integer adminId) throws Exception {
 
-        return initiateTransactionRequest.getTransactionType() == TransactionType.ISSUE ? issuance(initiateTransactionRequest)
-            : returnBook(initiateTransactionRequest);
+        return initiateTransactionRequest.getTransactionType() == TransactionType.ISSUE ? issuance(initiateTransactionRequest,adminId)
+            : returnBook(initiateTransactionRequest,adminId);
     }
 
-    private String issuance(InitiateTransactionRequest initiateTransactionRequest) throws Exception {
+    private String issuance(InitiateTransactionRequest initiateTransactionRequest, Integer adminId) throws Exception {
         Student student = studentService.findStudent(initiateTransactionRequest.getStudentId());
-        Admin admin = adminService.find(initiateTransactionRequest.getAdminId());
+        Admin admin = adminService.find(adminId);
         List<Book> booklist = bookService.find("id", String.valueOf(initiateTransactionRequest.getBookId()));
 
         Book book = booklist !=null && booklist.size()>0 ? booklist.get(0) : null;
@@ -77,10 +77,10 @@ public class TransactionService {
         return transaction.getTxnId();
     }
 
-    private String returnBook(InitiateTransactionRequest initiateTransactionRequest) throws Exception {
+    private String returnBook(InitiateTransactionRequest initiateTransactionRequest, Integer adminId) throws Exception {
 
         Student student = studentService.findStudent(initiateTransactionRequest.getStudentId());
-        Admin admin = adminService.find(initiateTransactionRequest.getAdminId());
+        Admin admin = adminService.find(adminId);
         List<Book> booklist = bookService.find("id", String.valueOf(initiateTransactionRequest.getBookId()));
 
         Book book = booklist !=null && booklist.size()>0 ? booklist.get(0) : null;
